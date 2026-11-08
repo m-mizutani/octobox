@@ -10,8 +10,8 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/controller/tui"
-	"github.com/m-mizutani/octbox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/controller/tui"
+	"github.com/m-mizutani/octobox/pkg/usecase"
 )
 
 func TestRunReturnsWhenTheUserQuits(t *testing.T) {

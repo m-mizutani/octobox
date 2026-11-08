@@ -11,9 +11,9 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 type notificationJSON struct {

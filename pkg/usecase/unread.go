@@ -6,14 +6,14 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
 )
 
 // UnreadCountReporter shows the number of unread items on an
 // UnreadCountDisplay. It reads the count from the database at every interval
 // instead of being told about changes, so read marks written by the inbox,
-// by a sync, or by another octbox process sharing the database all appear.
+// by a sync, or by another octobox process sharing the database all appear.
 type UnreadCountReporter struct {
 	repo     interfaces.Repository
 	display  interfaces.UnreadCountDisplay

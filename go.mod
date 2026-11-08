@@ -1,4 +1,4 @@
-module github.com/m-mizutani/octbox
+module github.com/m-mizutani/octobox
 
 go 1.27.1
 

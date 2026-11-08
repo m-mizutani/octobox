@@ -15,7 +15,7 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/herdr"
+	"github.com/m-mizutani/octobox/pkg/adapter/herdr"
 )
 
 type received struct {
@@ -120,7 +120,7 @@ func TestClient(t *testing.T) {
 		gt.A(t, reqs).Length(1).Required()
 		gt.Equal(t, reqs[0].Method, "pane.report_agent")
 		gt.Equal(t, params(t, reqs[0]), map[string]any{
-			"pane_id": "w1:p2", "source": "octbox", "agent": "octbox", "state": "idle",
+			"pane_id": "w1:p2", "source": "octobox", "agent": "octobox", "state": "idle",
 		})
 	})
 
@@ -145,7 +145,7 @@ func TestClient(t *testing.T) {
 		gt.A(t, reqs).Length(1).Required()
 		gt.Equal(t, reqs[0].Method, "pane.release_agent")
 		gt.Equal(t, params(t, reqs[0]), map[string]any{
-			"pane_id": "w1:p2", "source": "octbox", "agent": "octbox",
+			"pane_id": "w1:p2", "source": "octobox", "agent": "octobox",
 		})
 	})
 
@@ -191,7 +191,7 @@ func TestClient(t *testing.T) {
 	})
 
 	t.Run("a missing socket is an error", func(t *testing.T) {
-		gt.Error(t, herdr.New(filepath.Join(os.TempDir(), "octbox-no-such.sock"), "w1:p2").Register(ctx))
+		gt.Error(t, herdr.New(filepath.Join(os.TempDir(), "octobox-no-such.sock"), "w1:p2").Register(ctx))
 	})
 
 	t.Run("no response times out", func(t *testing.T) {

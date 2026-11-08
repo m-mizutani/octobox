@@ -8,22 +8,22 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/urfave/cli/v3"
 
-	"github.com/m-mizutani/octbox/pkg/repository/sqlite"
+	"github.com/m-mizutani/octobox/pkg/repository/sqlite"
 )
 
 // errNoHome is returned when a default path is needed but the home
 // directory is unknown.
 var errNoHome = goerr.New("cannot determine the home directory; set --db-path and --log-file")
 
-// dataDir is $HOME/.octbox on macOS and Linux, or "" when the home directory
-// is unknown. XDG_STATE_HOME is not used: every file of octbox stays in one
+// dataDir is $HOME/.octobox on macOS and Linux, or "" when the home directory
+// is unknown. XDG_STATE_HOME is not used: every file of octobox stays in one
 // directory the user can find.
 func dataDir() string {
 	home, err := os.UserHomeDir()
 	if err != nil || home == "" {
 		return ""
 	}
-	return filepath.Join(home, ".octbox")
+	return filepath.Join(home, ".octobox")
 }
 
 func defaultPath(name string) string {
@@ -44,8 +44,8 @@ func (x *Storage) Flags() []cli.Flag {
 			Name:        "db-path",
 			Category:    "Storage",
 			Usage:       "Path of the local SQLite database",
-			Value:       defaultPath("octbox.db"),
-			Sources:     cli.EnvVars("OCTBOX_DB_PATH"),
+			Value:       defaultPath("octobox.db"),
+			Sources:     cli.EnvVars("OCTOBOX_DB_PATH"),
 			Destination: &x.dbPath,
 		},
 	}

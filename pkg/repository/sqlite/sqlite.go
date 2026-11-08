@@ -13,9 +13,9 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	_ "modernc.org/sqlite"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 // Repository implements interfaces.Repository.

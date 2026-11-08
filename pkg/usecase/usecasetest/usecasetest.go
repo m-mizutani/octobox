@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // GitHubClient records every call. Each *Func field answers the call when

@@ -4,15 +4,15 @@ import (
 	"context"
 	"time"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/herdr"
-	"github.com/m-mizutani/octbox/pkg/cli/config"
-	"github.com/m-mizutani/octbox/pkg/controller/tui"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/usecase"
-	"github.com/m-mizutani/octbox/pkg/utils/async"
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/adapter/herdr"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/controller/tui"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/utils/async"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 // runInbox gets a token (logging in first when none is stored) and opens the
@@ -44,7 +44,7 @@ func runInbox(ctx context.Context, d *deps, storage *config.Storage, gh *config.
 	return d.startInbox(ctx, d, token, repo, interval, inputSource)
 }
 
-// herdrPane is the herdr pane octbox runs in: its sidebar status shows new
+// herdrPane is the herdr pane octobox runs in: its sidebar status shows new
 // updates, and its tab or pane name shows the unread count.
 type herdrPane interface {
 	interfaces.UpdateIndicator
@@ -55,7 +55,7 @@ type herdrPane interface {
 // database. Opening an item updates the name within this time.
 const unreadCountInterval = 2 * time.Second
 
-// lookupHerdrPane returns the herdr pane octbox runs in when herdr provides
+// lookupHerdrPane returns the herdr pane octobox runs in when herdr provides
 // HERDR_ENV=1, HERDR_PANE_ID, and HERDR_SOCKET_PATH, and nil otherwise.
 func lookupHerdrPane(lookup func(string) (string, bool)) herdrPane {
 	env, _ := lookup("HERDR_ENV")

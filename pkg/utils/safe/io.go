@@ -6,7 +6,7 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
 )
 
 // Close closes closer and records a failure through errutil.Handle. A nil

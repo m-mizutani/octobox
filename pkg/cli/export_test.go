@@ -5,9 +5,9 @@ import (
 	"io"
 	"time"
 
-	"github.com/m-mizutani/octbox/pkg/cli/config"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // TestDeps replaces the external boundaries of the commands.

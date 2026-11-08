@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-octbox is a terminal inbox of the GitHub issues and pull requests that involve
+octobox is a terminal inbox of the GitHub issues and pull requests that involve
 the user. It is a single Go binary; the layout follows m-mizutani/robin.
 
 ## Layers

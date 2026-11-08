@@ -5,7 +5,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
-	"github.com/m-mizutani/octbox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/usecase"
 )
 
 // DisableTick stops the one-second redraw so tests run every command

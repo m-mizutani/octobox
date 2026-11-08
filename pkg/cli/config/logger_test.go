@@ -9,15 +9,15 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/cli/config"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 func TestLoggerWritesOnlyToTheFile(t *testing.T) {
-	t.Setenv("OCTBOX_LOG_LEVEL", "")
-	gt.NoError(t, os.Unsetenv("OCTBOX_LOG_LEVEL"))
-	path := filepath.Join(t.TempDir(), "logs", "octbox.log")
+	t.Setenv("OCTOBOX_LOG_LEVEL", "")
+	gt.NoError(t, os.Unsetenv("OCTOBOX_LOG_LEVEL"))
+	path := filepath.Join(t.TempDir(), "logs", "octobox.log")
 
 	r, w, err := os.Pipe()
 	gt.NoError(t, err).Required()

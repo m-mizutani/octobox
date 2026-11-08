@@ -14,10 +14,10 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 const DefaultAPIBaseURL = "https://api.github.com"
@@ -70,7 +70,7 @@ func (c *Client) newRequest(ctx context.Context, method, url string, body io.Rea
 		return nil, goerr.Wrap(err, "failed to create a request", goerr.V("url", url))
 	}
 	req.Header.Set("Authorization", "bearer "+string(c.token))
-	req.Header.Set("User-Agent", "octbox")
+	req.Header.Set("User-Agent", "octobox")
 	return req, nil
 }
 

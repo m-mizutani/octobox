@@ -10,7 +10,7 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 var (
@@ -76,7 +76,7 @@ func (m *Model) headerLine() string {
 		}
 	}
 	accent := lipgloss.NewStyle().Foreground(colorAccent)
-	return accent.Bold(true).Render("octbox") + "  " +
+	return accent.Bold(true).Render("octobox") + "  " +
 		accent.Render(string(m.listedScope)) + "  " +
 		accent.Render(fmt.Sprintf("%d unread", unread)) +
 		fmt.Sprintf(" / %d items", len(m.entries))
@@ -260,7 +260,7 @@ func (m *Model) syncStatus() (string, color.Color) {
 	}
 	switch st.LastError {
 	case model.SyncErrorUnauthorized:
-		return "GitHub rejected the token. Run `octbox auth login`.", colorRed
+		return "GitHub rejected the token. Run `octobox auth login`.", colorRed
 	case model.SyncErrorRateLimited:
 		return "Rate limited by GitHub. Next sync at " + clock(st.NextRunAt) + ".", colorYellow
 	case model.SyncErrorNetwork, model.SyncErrorAPI, model.SyncErrorStorage, model.SyncErrorUnknown:

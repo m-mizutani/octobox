@@ -10,19 +10,19 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/cli"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/usecase/usecasetest"
+	"github.com/m-mizutani/octobox/pkg/cli"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/usecase/usecasetest"
 )
 
-// isolate points HOME to a temporary directory and unsets every octbox
+// isolate points HOME to a temporary directory and unsets every octobox
 // variable: urfave/cli takes an empty variable as the flag value.
 func isolate(t *testing.T) string {
 	t.Helper()
 	home := t.TempDir()
 	t.Setenv("HOME", home)
-	for _, name := range []string{"OCTBOX_DB_PATH", "OCTBOX_LOG_FILE", "OCTBOX_LOG_LEVEL", "OCTBOX_INTERVAL", "OCTBOX_CLIENT_ID", "XDG_STATE_HOME"} {
+	for _, name := range []string{"OCTOBOX_DB_PATH", "OCTOBOX_LOG_FILE", "OCTOBOX_LOG_LEVEL", "OCTOBOX_INTERVAL", "OCTOBOX_CLIENT_ID", "XDG_STATE_HOME"} {
 		t.Setenv(name, "")
 		gt.NoError(t, os.Unsetenv(name))
 	}
@@ -52,7 +52,7 @@ func newFixture() *fixture {
 }
 
 func (f *fixture) run(ctx context.Context, args ...string) error {
-	return cli.RunForTest(ctx, append([]string{"octbox"}, args...), cli.TestDeps{
+	return cli.RunForTest(ctx, append([]string{"octobox"}, args...), cli.TestDeps{
 		Stdout:      &f.stdout,
 		Stderr:      &f.stderr,
 		SecureStore: f.store,
@@ -106,12 +106,12 @@ func TestDefaultPaths(t *testing.T) {
 	f.store.Values = map[model.SecretKey]string{model.SecretKeyGitHubToken: "gho_stored"}
 	gt.NoError(t, f.run(ctx)).Required()
 
-	dir := filepath.Join(home, ".octbox")
+	dir := filepath.Join(home, ".octobox")
 	info, err := os.Stat(dir)
 	gt.NoError(t, err).Required()
 	gt.Equal(t, info.Mode().Perm(), os.FileMode(0o700))
-	gt.F(t, filepath.Join(dir, "octbox.db")).Exists()
-	gt.F(t, filepath.Join(dir, "octbox.log")).Exists()
+	gt.F(t, filepath.Join(dir, "octobox.db")).Exists()
+	gt.F(t, filepath.Join(dir, "octobox.log")).Exists()
 
 	t.Run("XDG_STATE_HOME does not change the location", func(t *testing.T) {
 		home := isolate(t)
@@ -119,7 +119,7 @@ func TestDefaultPaths(t *testing.T) {
 		f := newFixture()
 		f.store.Values = map[model.SecretKey]string{model.SecretKeyGitHubToken: "gho_stored"}
 		gt.NoError(t, f.run(ctx)).Required()
-		gt.F(t, filepath.Join(home, ".octbox", "octbox.db")).Exists()
+		gt.F(t, filepath.Join(home, ".octobox", "octobox.db")).Exists()
 		gt.F(t, filepath.Join(home, "state")).NotExists()
 	})
 }
@@ -135,7 +135,7 @@ func TestIntervalFlag(t *testing.T) {
 	gt.S(t, f.stderr.String()).Contains("--interval must be at least 30s")
 	gt.A(t, f.starts).Length(0)
 
-	t.Setenv("OCTBOX_INTERVAL", "90s")
+	t.Setenv("OCTOBOX_INTERVAL", "90s")
 	f = newFixture()
 	f.store.Values = map[model.SecretKey]string{model.SecretKeyGitHubToken: "gho_stored"}
 	gt.NoError(t, f.run(ctx)).Required()
@@ -160,24 +160,24 @@ func TestAuthCommands(t *testing.T) {
 
 	t.Run("login error messages", func(t *testing.T) {
 		cases := map[error]string{
-			interfaces.ErrDeviceCodeExpired:  "the code expired; run `octbox auth login` again",
+			interfaces.ErrDeviceCodeExpired:  "the code expired; run `octobox auth login` again",
 			interfaces.ErrDeviceFlowDisabled: "device flow is disabled for the OAuth app; enable it in the app settings",
 		}
 		for wantErr, msg := range cases {
 			f := newFixture()
 			f.device.WaitErr = wantErr
 			gt.Error(t, f.run(ctx, "auth", "login")).Is(wantErr)
-			gt.Equal(t, f.stderr.String(), "octbox: "+msg+"\n")
+			gt.Equal(t, f.stderr.String(), "octobox: "+msg+"\n")
 		}
 
 		f := newFixture()
 		f.store.SetErr = os.ErrPermission
 		gt.Error(t, f.run(ctx, "auth", "login"))
-		gt.Equal(t, f.stderr.String(), "octbox: failed to store the token in the OS secure storage\n")
+		gt.Equal(t, f.stderr.String(), "octobox: failed to store the token in the OS secure storage\n")
 
 		f = newFixture()
 		f.store.GetErr = interfaces.ErrSecureStoreUnavailable
 		gt.Error(t, f.run(ctx))
-		gt.Equal(t, f.stderr.String(), "octbox: secure storage is not available on this OS\n")
+		gt.Equal(t, f.stderr.String(), "octobox: secure storage is not available on this OS\n")
 	})
 }

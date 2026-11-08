@@ -15,9 +15,9 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/controller/tui"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/controller/tui"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/usecase"
 )
 
 var now = time.Date(2026, 10, 1, 12, 0, 0, 0, time.UTC)
@@ -389,7 +389,7 @@ func TestSyncEvents(t *testing.T) {
 	cases := map[model.SyncError]string{
 		model.SyncErrorNetwork:      "Sync failed (network error). Retrying at " + retry.Local().Format("15:04") + ".",
 		model.SyncErrorRateLimited:  "Rate limited by GitHub. Next sync at " + retry.Local().Format("15:04") + ".",
-		model.SyncErrorUnauthorized: "GitHub rejected the token. Run `octbox auth login`.",
+		model.SyncErrorUnauthorized: "GitHub rejected the token. Run `octobox auth login`.",
 	}
 	for syncErr, want := range cases {
 		_, cmd = m.Update(tui.SyncEventMsg{State: model.SyncState{LastError: syncErr, NextRunAt: retry, LastSyncAt: now, RateRemaining: -1}})
@@ -490,7 +490,7 @@ func TestRender(t *testing.T) {
 		gt.N(t, lipgloss.Width(line)).LessOrEqual(80)
 	}
 	lines := screen(m)
-	gt.Equal(t, lines[0], "octbox  inbox  3 unread / 6 items")
+	gt.Equal(t, lines[0], "octobox  inbox  3 unread / 6 items")
 	for i := range ci {
 		row := lines[1+i]
 		gt.Equal(t, string([]rune(row)[4]), ci[i].mark)
@@ -517,7 +517,7 @@ func TestRender(t *testing.T) {
 
 	t.Run("header counts the filtered list", func(t *testing.T) {
 		press(t, m, "/", "t", "i", "t", "l", "e", "enter")
-		gt.Equal(t, screen(m)[0], "octbox  inbox  2 unread / 5 items")
+		gt.Equal(t, screen(m)[0], "octobox  inbox  2 unread / 5 items")
 		press(t, m, "esc")
 	})
 }
@@ -608,7 +608,7 @@ func TestScopeKey(t *testing.T) {
 	sized(t, m, 80)
 
 	lines := screen(m)
-	gt.Equal(t, lines[0], "octbox  inbox  1 unread / 2 items")
+	gt.Equal(t, lines[0], "octobox  inbox  1 unread / 2 items")
 	gt.S(t, lines[1]).HasPrefix("● P")
 	gt.Equal(t, lines[len(lines)-1], "enter open  / filter  m read  e archive  a all  A read all  r sync  q quit")
 
@@ -616,7 +616,7 @@ func TestScopeKey(t *testing.T) {
 	press(t, m, "a")
 	gt.A(t, inbox.listScopes).Equal([]model.FilterScope{model.FilterScopeAll})
 	lines = screen(m)
-	gt.Equal(t, lines[0], "octbox  all  1 unread / 5 items")
+	gt.Equal(t, lines[0], "octobox  all  1 unread / 5 items")
 	gt.Equal(t, lines[len(lines)-1], "enter open  / filter  m read  e archive  a inbox  A read all  r sync  q quit")
 	marks := map[string]string{}
 	for _, line := range lines[1:6] {
@@ -640,7 +640,7 @@ func TestScopeKey(t *testing.T) {
 	inbox.resetCalls()
 	press(t, m, "a")
 	gt.A(t, inbox.listScopes).Equal([]model.FilterScope{model.FilterScopeInbox})
-	gt.Equal(t, screen(m)[0], "octbox  inbox  1 unread / 3 items")
+	gt.Equal(t, screen(m)[0], "octobox  inbox  1 unread / 3 items")
 }
 
 func TestScopeKeyIgnoresOlderList(t *testing.T) {
@@ -650,16 +650,16 @@ func TestScopeKeyIgnoresOlderList(t *testing.T) {
 	m, _ := newModel(t, inbox)
 
 	press(t, m, "a")
-	gt.Equal(t, screen(m)[0], "octbox  all  1 unread / 3 items")
+	gt.Equal(t, screen(m)[0], "octobox  all  1 unread / 3 items")
 
 	// A list requested in the all scope arrives after the switch back to the
 	// inbox and is dropped.
 	stale := tui.ListCmd(m)
 	press(t, m, "a")
-	gt.Equal(t, screen(m)[0], "octbox  inbox  1 unread / 2 items")
+	gt.Equal(t, screen(m)[0], "octobox  inbox  1 unread / 2 items")
 	_, cmd := m.Update(stale())
 	run(t, m, cmd)
-	gt.Equal(t, screen(m)[0], "octbox  inbox  1 unread / 2 items")
+	gt.Equal(t, screen(m)[0], "octobox  inbox  1 unread / 2 items")
 }
 
 func TestScopeKeyKeepsTheListedScope(t *testing.T) {
@@ -668,12 +668,12 @@ func TestScopeKeyKeepsTheListedScope(t *testing.T) {
 	inbox := &fakeInbox{entries: entries}
 	m, _ := newModel(t, inbox)
 	press(t, m, "a")
-	gt.Equal(t, screen(m)[0], "octbox  all  1 unread / 3 items")
+	gt.Equal(t, screen(m)[0], "octobox  all  1 unread / 3 items")
 
 	// While the inbox list is loading, the screen still shows the all view.
 	_, _ = m.Update(keyMsg("a"))
 	lines := screen(m)
-	gt.Equal(t, lines[0], "octbox  all  1 unread / 3 items")
+	gt.Equal(t, lines[0], "octobox  all  1 unread / 3 items")
 	gt.S(t, lines[len(lines)-1]).Contains("a inbox")
 
 	// A failed switch keeps the all view, with its marks, and a retries it.
@@ -681,7 +681,7 @@ func TestScopeKeyKeepsTheListedScope(t *testing.T) {
 	inbox.resetCalls()
 	press(t, m, "a")
 	lines = screen(m)
-	gt.Equal(t, lines[0], "octbox  all  1 unread / 3 items")
+	gt.Equal(t, lines[0], "octobox  all  1 unread / 3 items")
 	gt.S(t, lines[2]).HasPrefix("a ")
 	gt.Equal(t, lines[len(lines)-2], "Failed to read the local database.")
 
@@ -689,7 +689,7 @@ func TestScopeKeyKeepsTheListedScope(t *testing.T) {
 	inbox.resetCalls()
 	press(t, m, "a")
 	gt.A(t, inbox.listScopes).Equal([]model.FilterScope{model.FilterScopeInbox})
-	gt.Equal(t, screen(m)[0], "octbox  inbox  1 unread / 2 items")
+	gt.Equal(t, screen(m)[0], "octobox  inbox  1 unread / 2 items")
 }
 
 func TestAge(t *testing.T) {

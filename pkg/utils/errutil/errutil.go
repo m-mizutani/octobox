@@ -11,7 +11,7 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 // TagBenign marks an error that occurs in normal operation (a cancelled

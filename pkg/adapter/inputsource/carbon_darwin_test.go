@@ -7,7 +7,7 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/inputsource"
+	"github.com/m-mizutani/octobox/pkg/adapter/inputsource"
 )
 
 // TestNewFindsTheAPI only loads the API: selecting a source would change the

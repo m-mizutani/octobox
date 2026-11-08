@@ -12,13 +12,13 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/zalando/go-keyring"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // serviceName is the service of every secure storage entry; the key is the
 // account name.
-const serviceName = "octbox"
+const serviceName = "octobox"
 
 // keyringStore uses the macOS keychain (/usr/bin/security) or the Linux
 // Secret Service (D-Bus) through go-keyring.

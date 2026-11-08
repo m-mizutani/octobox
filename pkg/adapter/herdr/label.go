@@ -8,15 +8,15 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 )
 
-// renamedTarget is the tab or the pane whose name octbox replaced with the
+// renamedTarget is the tab or the pane whose name octobox replaced with the
 // unread count. Exactly one of tabID and pane is set.
 type renamedTarget struct {
 	tabID string
 	pane  bool
-	// original is the name before octbox replaced it. For a pane, nil means
+	// original is the name before octobox replaced it. For a pane, nil means
 	// the pane had no name.
 	original *string
-	// label is the name octbox set last.
+	// label is the name octobox set last.
 	label string
 }
 
@@ -68,7 +68,7 @@ type tabInfoResult struct {
 }
 
 func unreadLabel(count int) string {
-	return "[octbox] " + strconv.Itoa(count) + " unread"
+	return "[octobox] " + strconv.Itoa(count) + " unread"
 }
 
 func sidebarLabel(count int) string {
@@ -76,7 +76,7 @@ func sidebarLabel(count int) string {
 }
 
 // ShowUnreadCount shows count in two places: the tab or pane name, and the
-// agent name of octbox's row in the herdr sidebar, whose default rows show
+// agent name of octobox's row in the herdr sidebar, whose default rows show
 // the tab name but not the pane name. A failure in one place does not stop
 // the other; the errors are joined.
 func (x *Client) ShowUnreadCount(ctx context.Context, count int) error {
@@ -90,7 +90,7 @@ func (x *Client) RemoveUnreadCount(ctx context.Context) error {
 }
 
 // showInSidebar sets the agent name of the sidebar row when it differs from
-// the one octbox set last.
+// the one octobox set last.
 func (x *Client) showInSidebar(ctx context.Context, count int) error {
 	label := sidebarLabel(count)
 	if x.sidebarLabel == label {
@@ -105,7 +105,7 @@ func (x *Client) showInSidebar(ctx context.Context, count int) error {
 	return nil
 }
 
-// removeFromSidebar puts back the agent name `octbox`.
+// removeFromSidebar puts back the agent name `octobox`.
 func (x *Client) removeFromSidebar(ctx context.Context) error {
 	if x.sidebarLabel == "" {
 		return nil
@@ -123,7 +123,7 @@ func (x *Client) removeFromSidebar(ctx context.Context) error {
 // tab, and names the pane instead when the tab has other panes. The layout
 // is read at every call, so splitting the tab, closing the other panes, or
 // moving the pane to another tab moves the count; the name it leaves is put
-// back. A name is sent only when it differs from the one octbox set last, so
+// back. A name is sent only when it differs from the one octobox set last, so
 // a name the user sets is kept until the count changes.
 func (x *Client) showInName(ctx context.Context, count int) error {
 	var pane paneInfoResult

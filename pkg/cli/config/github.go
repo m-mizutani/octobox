@@ -4,10 +4,10 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/urfave/cli/v3"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/github"
+	"github.com/m-mizutani/octobox/pkg/adapter/github"
 )
 
-// defaultClientID is the Client ID of the octbox OAuth app. The device flow
+// defaultClientID is the Client ID of the octobox OAuth app. The device flow
 // uses no client secret, so the ID is not a secret.
 const defaultClientID = "Ov23lifmj6pSAE32qsGZ"
 
@@ -22,7 +22,7 @@ func (x *GitHub) Flags() []cli.Flag {
 			Category:    "GitHub",
 			Usage:       "Client ID of the GitHub OAuth app used for the device flow",
 			Value:       defaultClientID,
-			Sources:     cli.EnvVars("OCTBOX_CLIENT_ID"),
+			Sources:     cli.EnvVars("OCTOBOX_CLIENT_ID"),
 			Destination: &x.clientID,
 		},
 	}

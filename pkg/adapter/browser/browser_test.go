@@ -7,8 +7,8 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/browser"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/adapter/browser"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
 )
 
 type recorder struct {
