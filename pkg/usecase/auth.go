@@ -6,8 +6,8 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // TagTokenNotStored marks a login that got a valid token but could not save

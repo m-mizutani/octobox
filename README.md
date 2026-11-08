@@ -1,6 +1,6 @@
-# octbox
+# octobox
 
-octbox lists the GitHub issues and pull requests that involve you in your terminal, one per line. It keeps its own copy of them in a local database, so filtering and read marks work without GitHub's notification inbox.
+octobox lists the GitHub issues and pull requests that involve you in your terminal, one per line. It keeps its own copy of them in a local database, so filtering and read marks work without GitHub's notification inbox.
 
 An item is listed when it is open and at least one of the following applies:
 
@@ -19,25 +19,25 @@ A pull request whose latest review by you is an approval is hidden from the list
 - Someone else replies to a comment you wrote on a line of the diff
 - Your approval is dismissed, or you submit a later review that is not an approval (a comment or a change request)
 
-New commits, and comments that neither mention you nor reply to you, do not list it again. A mention of a team you belong to (`@org/team`) does not list it again either. octbox reads the comments of a hidden pull request when it is updated. If it cannot read them, it keeps the pull request as it was and tries again at the next sync. When more than 1,000 comments and reviews were added since your approval, only the latest 1,000 are checked.
+New commits, and comments that neither mention you nor reply to you, do not list it again. A mention of a team you belong to (`@org/team`) does not list it again either. octobox reads the comments of a hidden pull request when it is updated. If it cannot read them, it keeps the pull request as it was and tries again at the next sync. When more than 1,000 comments and reviews were added since your approval, only the latest 1,000 are checked.
 
-After upgrading from an earlier version, pull requests you have already approved stay listed until octbox fetches every listed item again (every 10 minutes with the default interval); press `r` to fetch them now.
+After upgrading from an earlier version, pull requests you have already approved stay listed until octobox fetches every listed item again (every 10 minutes with the default interval); press `r` to fetch them now.
 
 ## Requirements
 
 - macOS or Linux
-- On Linux, a Secret Service provider (such as GNOME Keyring or KeePassXC) running on the D-Bus session bus. octbox stores the GitHub token there; on macOS it uses the login keychain.
+- On Linux, a Secret Service provider (such as GNOME Keyring or KeePassXC) running on the D-Bus session bus. octobox stores the GitHub token there; on macOS it uses the login keychain.
 - `open` (macOS) or `xdg-open` (Linux) to open items in the browser
 
 ## Install
 
 ```sh
-go install github.com/m-mizutani/octbox@latest
+go install github.com/m-mizutani/octobox@latest
 ```
 
 ## Usage
 
-Run `octbox`. On the first run it asks you to authorize it on GitHub:
+Run `octobox`. On the first run it asks you to authorize it on GitHub:
 
 ```
 First, copy your one-time code: ABCD-1234
@@ -49,9 +49,9 @@ After you enter the code and approve, the inbox opens and the first sync starts.
 
 | Command | What it does |
 | --- | --- |
-| `octbox` | Opens the inbox. Logs in first when no token is stored. |
-| `octbox auth login` | Logs in again, for example to switch accounts. Logging in as another account clears the local database. |
-| `octbox auth logout` | Deletes the stored token. The local database is kept. |
+| `octobox` | Opens the inbox. Logs in first when no token is stored. |
+| `octobox auth login` | Logs in again, for example to switch accounts. Logging in as another account clears the local database. |
+| `octobox auth logout` | Deletes the stored token. The local database is kept. |
 
 ### Keys
 
@@ -82,61 +82,61 @@ The header shows which view is open (`inbox` or `all`). In the all view, each ro
 
 ### Archiving items
 
-Press `e` to archive the selected item. It leaves the inbox, the unread count, and the herdr status until GitHub reports an update to it (a later update time, the same time octbox uses for unread items). Then the archive ends without any action from you: the item is listed in the inbox again and herdr shows the update. Pressing `e` on an archived item in the all view also ends the archive, without a herdr update. Archiving does not change whether the item is read, and does not change anything on GitHub.
+Press `e` to archive the selected item. It leaves the inbox, the unread count, and the herdr status until GitHub reports an update to it (a later update time, the same time octobox uses for unread items). Then the archive ends without any action from you: the item is listed in the inbox again and herdr shows the update. Pressing `e` on an archived item in the all view also ends the archive, without a herdr update. Archiving does not change whether the item is read, and does not change anything on GitHub.
 
 A pull request you approved stays out of the inbox after its archive ends, until one of the conditions for approved pull requests above is met. In the all view its mark changes from `a` to `d`.
 
 What counts as an update is decided by GitHub's update time. A new comment moves it, so a comment you write yourself also brings the item back. A finished CI run does not move it, so the item stays archived. If a pull request you approved is archived and your review is requested again without the update time changing, it stays archived; look for it in the all view.
 
-Archiving an item is not the same as an archived repository. Items of archived repositories are removed from octbox (see the top of this page).
+Archiving an item is not the same as an archived repository. Items of archived repositories are removed from octobox (see the top of this page).
 
 ### Running in herdr
 
-When octbox runs in a pane of [Herdr TUI](https://herdr.dev/tui/), it appears in the herdr sidebar as the agent `octbox`. When a sync brings a new update to an item (the item is unread and its update time differs from what octbox saw at the previous sync) while you are not viewing that pane, its status turns to done (a filled dot); viewing the pane turns it back to idle. The status does not change for items that are already unread when octbox starts, for items you mark unread with `m` or move back from the archive with `e`, for archived items, or for items fetched again without a new update, such as pull requests whose CI is still running.
+When octobox runs in a pane of [Herdr TUI](https://herdr.dev/tui/), it appears in the herdr sidebar as the agent `octobox`. When a sync brings a new update to an item (the item is unread and its update time differs from what octobox saw at the previous sync) while you are not viewing that pane, its status turns to done (a filled dot); viewing the pane turns it back to idle. The status does not change for items that are already unread when octobox starts, for items you mark unread with `m` or move back from the archive with `e`, for archived items, or for items fetched again without a new update, such as pull requests whose CI is still running.
 
-octbox also shows the number of unread items in the inbox (archived items are not counted). In its row of the herdr sidebar, the agent name `octbox` becomes `octbox 2 unread`. In addition, `[octbox] 2 unread` becomes the name of its tab when its pane is the only one in the tab, and the name of its pane when the tab is split (the sidebar shows tab names but, by default, not pane names). The number is read from the database every 2 seconds, so it follows items you open or mark, syncs, and other octbox processes sharing the database. Splitting the tab, closing the other panes, or moving the pane to another tab moves the number, and the name it leaves is put back. A name you set while octbox runs is kept until the number changes. When octbox quits, the sidebar row is removed and the tab or pane gets its previous name back; herdr cannot turn a tab back to its automatic name (its number), so such a tab keeps the same number as a name of its own.
+octobox also shows the number of unread items in the inbox (archived items are not counted). In its row of the herdr sidebar, the agent name `octobox` becomes `octobox 2 unread`. In addition, `[octobox] 2 unread` becomes the name of its tab when its pane is the only one in the tab, and the name of its pane when the tab is split (the sidebar shows tab names but, by default, not pane names). The number is read from the database every 2 seconds, so it follows items you open or mark, syncs, and other octobox processes sharing the database. Splitting the tab, closing the other panes, or moving the pane to another tab moves the number, and the name it leaves is put back. A name you set while octobox runs is kept until the number changes. When octobox quits, the sidebar row is removed and the tab or pane gets its previous name back; herdr cannot turn a tab back to its automatic name (its number), so such a tab keeps the same number as a name of its own.
 
-octbox detects herdr from the variables herdr sets in its panes (`HERDR_ENV=1`, `HERDR_PANE_ID`, and `HERDR_SOCKET_PATH`) and needs no setup; outside herdr it sends nothing. Requests to herdr's socket contain the pane and tab IDs, the name `octbox`, the state, and the names with the unread count; GitHub tokens and item contents are never sent. When octbox quits, it removes itself from the sidebar. herdr may play a sound when the status turns to done, as set by `[ui.sound]` in herdr's configuration.
+octobox detects herdr from the variables herdr sets in its panes (`HERDR_ENV=1`, `HERDR_PANE_ID`, and `HERDR_SOCKET_PATH`) and needs no setup; outside herdr it sends nothing. Requests to herdr's socket contain the pane and tab IDs, the name `octobox`, the state, and the names with the unread count; GitHub tokens and item contents are never sent. When octobox quits, it removes itself from the sidebar. herdr may play a sound when the status turns to done, as set by `[ui.sound]` in herdr's configuration.
 
 ## Options
 
 | Flag | Environment variable | Default | Description |
 | --- | --- | --- | --- |
-| `--interval` | `OCTBOX_INTERVAL` | `60s` | Time between syncs. At least `30s`. |
-| `--db-path` | `OCTBOX_DB_PATH` | `~/.octbox/octbox.db` | Local database |
-| `--log-file` | `OCTBOX_LOG_FILE` | `~/.octbox/octbox.log` | Log file (appended) |
-| `--log-level` | `OCTBOX_LOG_LEVEL` | `info` | `debug`, `info`, `warn`, or `error` |
-| `--client-id` | `OCTBOX_CLIENT_ID` | octbox's OAuth app | Client ID of the OAuth app used for login |
-| `--switch-ascii-input-source` | `OCTBOX_SWITCH_ASCII_INPUT_SOURCE` | `true` | macOS only. Switch the keyboard input source while octbox has focus (see below). On other OSes the default is ignored, and `true` given by the flag or the variable is an error. |
+| `--interval` | `OCTOBOX_INTERVAL` | `60s` | Time between syncs. At least `30s`. |
+| `--db-path` | `OCTOBOX_DB_PATH` | `~/.octobox/octobox.db` | Local database |
+| `--log-file` | `OCTOBOX_LOG_FILE` | `~/.octobox/octobox.log` | Log file (appended) |
+| `--log-level` | `OCTOBOX_LOG_LEVEL` | `info` | `debug`, `info`, `warn`, or `error` |
+| `--client-id` | `OCTOBOX_CLIENT_ID` | octobox's OAuth app | Client ID of the OAuth app used for login |
+| `--switch-ascii-input-source` | `OCTOBOX_SWITCH_ASCII_INPUT_SOURCE` | `true` | macOS only. Switch the keyboard input source while octobox has focus (see below). On other OSes the default is ignored, and `true` given by the flag or the variable is an error. |
 
 ### Keys with an input method (IME)
 
-While a Japanese or other input method is selected, the keys you press go to the input method, and octbox receives nothing until you confirm the text. On macOS, octbox therefore selects the ASCII-capable keyboard layout (such as ABC) when it starts and when its terminal or herdr pane gets focus, so its keys work directly. It selects the previous input source again when you start typing a filter with `/` (so the keyword can be Japanese), when its terminal or pane loses focus, and when it quits; it selects the ASCII-capable layout again when the filter input ends. The input source is a setting of macOS, so the change also applies to other applications while octbox has focus. Focus changes are known only from terminals that report focus (`CSI ?1004h`). To keep the input source unchanged, pass `--switch-ascii-input-source=false` or set `OCTBOX_SWITCH_ASCII_INPUT_SOURCE=false`.
+While a Japanese or other input method is selected, the keys you press go to the input method, and octobox receives nothing until you confirm the text. On macOS, octobox therefore selects the ASCII-capable keyboard layout (such as ABC) when it starts and when its terminal or herdr pane gets focus, so its keys work directly. It selects the previous input source again when you start typing a filter with `/` (so the keyword can be Japanese), when its terminal or pane loses focus, and when it quits; it selects the ASCII-capable layout again when the filter input ends. The input source is a setting of macOS, so the change also applies to other applications while octobox has focus. Focus changes are known only from terminals that report focus (`CSI ?1004h`). To keep the input source unchanged, pass `--switch-ascii-input-source=false` or set `OCTOBOX_SWITCH_ASCII_INPUT_SOURCE=false`.
 
-The database and the log file are created with mode `0600` in a `0700` directory. The token is stored only in the OS secure storage (service `octbox`, account `github-token`), never in the database or the log.
+The database and the log file are created with mode `0600` in a `0700` directory. The token is stored only in the OS secure storage (service `octobox`, account `github-token`), never in the database or the log.
 
 ## GitHub access
 
-octbox logs in through the OAuth device flow of an OAuth app and requests the `repo` scope, which GitHub requires to search and read notifications of private repositories. It calls only the GraphQL API and the notifications API of github.com; GitHub Enterprise Server is not supported.
+octobox logs in through the OAuth device flow of an OAuth app and requests the `repo` scope, which GitHub requires to search and read notifications of private repositories. It calls only the GraphQL API and the notifications API of github.com; GitHub Enterprise Server is not supported.
 
 If an organization restricts OAuth app access, items in its private repositories do not appear until an organization owner approves the app. See [Approving OAuth apps for your organization](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/approving-oauth-apps-for-your-organization).
 
-If an organization enforces SAML single sign-on, GitHub withholds its items from a token that was authorized without an active SSO session for that organization; octbox lists the other items and writes a warning to the log file. To include them, open `https://github.com/orgs/ORGANIZATION-NAME/sso` in a browser to start an SSO session, then run `octbox auth login` again. See [About authentication with SAML single sign-on](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on).
+If an organization enforces SAML single sign-on, GitHub withholds its items from a token that was authorized without an active SSO session for that organization; octobox lists the other items and writes a warning to the log file. To include them, open `https://github.com/orgs/ORGANIZATION-NAME/sso` in a browser to start an SSO session, then run `octobox auth login` again. See [About authentication with SAML single sign-on](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on).
 
 ### Using your own OAuth app
 
 1. On GitHub, open Settings → Developer settings → OAuth Apps → New OAuth App.
 2. Enter any Homepage URL and Authorization callback URL (the device flow does not use the callback).
-3. After creating the app, check "Enable Device Flow" and save. Leave "Expire user access tokens" unchecked: octbox does not refresh tokens.
-4. Pass the Client ID with `--client-id` or `OCTBOX_CLIENT_ID`. No client secret is needed.
+3. After creating the app, check "Enable Device Flow" and save. Leave "Expire user access tokens" unchecked: octobox does not refresh tokens.
+4. Pass the Client ID with `--client-id` or `OCTOBOX_CLIENT_ID`. No client secret is needed.
 
 ### API usage
 
-With the default 60-second interval, a sync fetches only items updated since the previous sync, and a full sync runs every 6 hours to notice items you no longer belong to (for example, a withdrawn review request). Every 10 minutes, and whenever you press `r`, octbox also fetches every listed item by its ID, because archiving or deleting a repository does not change the update time of its items. When a pull request you approved is updated, octbox also reads its comments since your approval, up to 10 pull requests per request. The GraphQL usage stays around 7–10% of the 5,000 points per hour limit. The notifications API is called with `If-Modified-Since`, so an unchanged response does not count against the rate limit. When fewer than 200 points remain, or GitHub asks octbox to wait, syncing pauses until the limit resets.
+With the default 60-second interval, a sync fetches only items updated since the previous sync, and a full sync runs every 6 hours to notice items you no longer belong to (for example, a withdrawn review request). Every 10 minutes, and whenever you press `r`, octobox also fetches every listed item by its ID, because archiving or deleting a repository does not change the update time of its items. When a pull request you approved is updated, octobox also reads its comments since your approval, up to 10 pull requests per request. The GraphQL usage stays around 7–10% of the 5,000 points per hour limit. The notifications API is called with `If-Modified-Since`, so an unchanged response does not count against the rate limit. When fewer than 200 points remain, or GitHub asks octobox to wait, syncing pauses until the limit resets.
 
-A request that GitHub answers with 502, 503, or 504 is sent again after 2 and then 5 seconds. If a full sync still fails, octbox runs the regular sync instead, so the list keeps updating and merged pull requests keep disappearing; the full sync is tried again 15 minutes later.
+A request that GitHub answers with 502, 503, or 504 is sent again after 2 and then 5 seconds. If a full sync still fails, octobox runs the regular sync instead, so the list keeps updating and merged pull requests keep disappearing; the full sync is tried again 15 minutes later.
 
-Several octbox processes may share one database; only one of them syncs at a time.
+Several octobox processes may share one database; only one of them syncs at a time.
 
 ## License
 

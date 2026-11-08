@@ -9,7 +9,7 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/urfave/cli/v3"
 
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 type Logger struct {
@@ -24,15 +24,15 @@ func (x *Logger) Flags() []cli.Flag {
 			Category:    "Logging",
 			Usage:       "Log level [debug|info|warn|error]",
 			Value:       "info",
-			Sources:     cli.EnvVars("OCTBOX_LOG_LEVEL"),
+			Sources:     cli.EnvVars("OCTOBOX_LOG_LEVEL"),
 			Destination: &x.level,
 		},
 		&cli.StringFlag{
 			Name:        "log-file",
 			Category:    "Logging",
 			Usage:       "Path of the log file (appended)",
-			Value:       defaultPath("octbox.log"),
-			Sources:     cli.EnvVars("OCTBOX_LOG_FILE"),
+			Value:       defaultPath("octobox.log"),
+			Sources:     cli.EnvVars("OCTOBOX_LOG_FILE"),
 			Destination: &x.file,
 		},
 	}

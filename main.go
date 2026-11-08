@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/m-mizutani/octbox/pkg/cli"
+	"github.com/m-mizutani/octobox/pkg/cli"
 )
 
 var version = "dev"

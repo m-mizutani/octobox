@@ -10,9 +10,9 @@ import (
 	"github.com/m-mizutani/gt"
 	"golang.org/x/oauth2"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/github"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/adapter/github"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // newDeviceServer returns an authenticator against a fake GitHub that issues

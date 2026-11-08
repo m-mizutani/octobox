@@ -8,7 +8,7 @@ import (
 	"github.com/m-mizutani/gt"
 	"github.com/urfave/cli/v3"
 
-	"github.com/m-mizutani/octbox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
 )
 
 func parse(t *testing.T, flags []cli.Flag, args ...string) {
@@ -18,8 +18,8 @@ func parse(t *testing.T, flags []cli.Flag, args ...string) {
 }
 
 func TestGitHubClientID(t *testing.T) {
-	t.Setenv("OCTBOX_CLIENT_ID", "")
-	gt.NoError(t, os.Unsetenv("OCTBOX_CLIENT_ID"))
+	t.Setenv("OCTOBOX_CLIENT_ID", "")
+	gt.NoError(t, os.Unsetenv("OCTOBOX_CLIENT_ID"))
 
 	var gh config.GitHub
 	parse(t, gh.Flags())

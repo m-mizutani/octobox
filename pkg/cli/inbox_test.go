@@ -5,7 +5,7 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/cli"
+	"github.com/m-mizutani/octobox/pkg/cli"
 )
 
 func TestLookupHerdrPane(t *testing.T) {

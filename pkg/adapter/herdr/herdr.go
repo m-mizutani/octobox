@@ -1,4 +1,4 @@
-// Package herdr reports octbox's state to the herdr pane it runs in, over
+// Package herdr reports octobox's state to the herdr pane it runs in, over
 // herdr's socket API: newline-delimited JSON on a Unix domain socket.
 package herdr
 
@@ -13,13 +13,13 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 const (
-	source    = "octbox" // identifies the integration; must not start with "herdr:"
-	agentName = "octbox" // shown in the herdr sidebar
+	source    = "octobox" // identifies the integration; must not start with "herdr:"
+	agentName = "octobox" // shown in the herdr sidebar
 	// requestTimeout bounds one request, from connecting to reading the
 	// response. ShowUpdate runs on the syncer goroutine, so a hung herdr
 	// delays the next sync by at most two requests.
@@ -44,7 +44,7 @@ type Client struct {
 	lastID     atomic.Uint64
 
 	// renamed is the tab or pane whose name shows the unread count, nil
-	// while none does, and sidebarLabel is the agent name octbox set on its
+	// while none does, and sidebarLabel is the agent name octobox set on its
 	// sidebar row, "" while none is set. Only ShowUnreadCount and
 	// RemoveUnreadCount use them, and they are called one at a time.
 	renamed      *renamedTarget
@@ -67,7 +67,7 @@ type request struct {
 }
 
 // reportAgentParams carries no seq: herdr ignores a seq not higher than the
-// last one accepted for the pane, so a restarted octbox would be ignored.
+// last one accepted for the pane, so a restarted octobox would be ignored.
 // Requests are sent one at a time, which keeps them in order.
 type reportAgentParams struct {
 	PaneID string `json:"pane_id"`
@@ -93,7 +93,7 @@ type responseError struct {
 	Message string `json:"message"`
 }
 
-// Register reports the pane idle, which shows octbox with no update.
+// Register reports the pane idle, which shows octobox with no update.
 func (x *Client) Register(ctx context.Context) error {
 	return x.report(ctx, stateIdle)
 }
@@ -137,7 +137,7 @@ func (x *Client) send(ctx context.Context, method string, params any, result any
 		}
 	}
 
-	req := request{ID: "octbox-" + strconv.FormatUint(x.lastID.Add(1), 10), Method: method, Params: params}
+	req := request{ID: "octobox-" + strconv.FormatUint(x.lastID.Add(1), 10), Method: method, Params: params}
 	line, err := json.Marshal(req)
 	if err != nil {
 		return goerr.Wrap(err, "failed to encode the herdr request", goerr.V("method", method))

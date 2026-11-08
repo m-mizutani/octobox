@@ -8,13 +8,13 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/cli/config"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
 )
 
 func TestKeyboardInputSourceIsOnByDefault(t *testing.T) {
-	t.Setenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE", "")
-	gt.NoError(t, os.Unsetenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE"))
+	t.Setenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE", "")
+	gt.NoError(t, os.Unsetenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE"))
 
 	var k config.Keyboard
 	parse(t, k.Flags())
@@ -26,8 +26,8 @@ func TestKeyboardInputSourceIsOnByDefault(t *testing.T) {
 
 func TestKeyboardInputSourceCanBeTurnedOff(t *testing.T) {
 	t.Run("flag", func(t *testing.T) {
-		t.Setenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE", "")
-		gt.NoError(t, os.Unsetenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE"))
+		t.Setenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE", "")
+		gt.NoError(t, os.Unsetenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE"))
 
 		var k config.Keyboard
 		parse(t, k.Flags(), "--switch-ascii-input-source=false")
@@ -37,7 +37,7 @@ func TestKeyboardInputSourceCanBeTurnedOff(t *testing.T) {
 	})
 
 	t.Run("env", func(t *testing.T) {
-		t.Setenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE", "false")
+		t.Setenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE", "false")
 
 		var k config.Keyboard
 		parse(t, k.Flags())
@@ -48,7 +48,7 @@ func TestKeyboardInputSourceCanBeTurnedOff(t *testing.T) {
 }
 
 func TestKeyboardInputSourceGivenExplicitly(t *testing.T) {
-	t.Setenv("OCTBOX_SWITCH_ASCII_INPUT_SOURCE", "true")
+	t.Setenv("OCTOBOX_SWITCH_ASCII_INPUT_SOURCE", "true")
 
 	var k config.Keyboard
 	parse(t, k.Flags())

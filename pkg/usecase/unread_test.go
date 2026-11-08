@@ -8,8 +8,8 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/usecase"
-	"github.com/m-mizutani/octbox/pkg/usecase/usecasetest"
+	"github.com/m-mizutani/octobox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/usecase/usecasetest"
 )
 
 func TestUnreadCountReporter(t *testing.T) {

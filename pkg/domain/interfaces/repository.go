@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 type Repository interface {

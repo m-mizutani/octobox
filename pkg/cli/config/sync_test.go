@@ -7,12 +7,12 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
 )
 
 func TestSyncInterval(t *testing.T) {
-	t.Setenv("OCTBOX_INTERVAL", "")
-	gt.NoError(t, os.Unsetenv("OCTBOX_INTERVAL"))
+	t.Setenv("OCTOBOX_INTERVAL", "")
+	gt.NoError(t, os.Unsetenv("OCTOBOX_INTERVAL"))
 
 	var def config.Sync
 	parse(t, def.Flags())
@@ -25,7 +25,7 @@ func TestSyncInterval(t *testing.T) {
 	_, err = short.Interval()
 	gt.Error(t, err).Contains("--interval must be at least 30s")
 
-	t.Setenv("OCTBOX_INTERVAL", "90s")
+	t.Setenv("OCTOBOX_INTERVAL", "90s")
 	var env config.Sync
 	parse(t, env.Flags())
 	d, err = env.Interval()

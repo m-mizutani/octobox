@@ -9,11 +9,11 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/repository/sqlite"
-	"github.com/m-mizutani/octbox/pkg/usecase"
-	"github.com/m-mizutani/octbox/pkg/usecase/usecasetest"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/repository/sqlite"
+	"github.com/m-mizutani/octobox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/usecase/usecasetest"
 )
 
 // failingSetRead is the SQLite repository with SetRead failing, as when the

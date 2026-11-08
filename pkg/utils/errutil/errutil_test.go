@@ -10,8 +10,8 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 func TestHandle(t *testing.T) {

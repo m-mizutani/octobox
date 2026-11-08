@@ -11,9 +11,9 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/github"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/adapter/github"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 func asRateLimited(t *testing.T, err error) *interfaces.RateLimitedError {

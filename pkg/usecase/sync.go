@@ -12,11 +12,11 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/utils/async"
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/utils/async"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 const (

@@ -11,10 +11,10 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/usecase"
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
 )
 
 // Inbox is the part of usecase.Inbox the screen uses.

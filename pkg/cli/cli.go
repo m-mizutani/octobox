@@ -1,5 +1,5 @@
 // Package cli parses flags and environment variables, builds the components,
-// and wires them for the octbox commands.
+// and wires them for the octobox commands.
 package cli
 
 import (
@@ -15,15 +15,15 @@ import (
 	"github.com/m-mizutani/goerr/v2"
 	"github.com/urfave/cli/v3"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/browser"
-	"github.com/m-mizutani/octbox/pkg/adapter/github"
-	"github.com/m-mizutani/octbox/pkg/adapter/securestore"
-	"github.com/m-mizutani/octbox/pkg/cli/config"
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/usecase"
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
-	"github.com/m-mizutani/octbox/pkg/utils/safe"
+	"github.com/m-mizutani/octobox/pkg/adapter/browser"
+	"github.com/m-mizutani/octobox/pkg/adapter/github"
+	"github.com/m-mizutani/octobox/pkg/adapter/securestore"
+	"github.com/m-mizutani/octobox/pkg/cli/config"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/usecase"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/safe"
 )
 
 // deps are the external boundaries the commands use. Tests replace them.
@@ -34,7 +34,7 @@ type deps struct {
 	newDevice   func(cfg *config.GitHub) (interfaces.DeviceAuthenticator, error)
 	newClient   interfaces.GitHubClientFactory
 	newBrowser  func() interfaces.Browser
-	// herdrPane returns the herdr pane octbox runs in, or nil outside herdr.
+	// herdrPane returns the herdr pane octobox runs in, or nil outside herdr.
 	herdrPane func() herdrPane
 	// startInbox runs the full-screen inbox with a token that GitHub accepted
 	// or that is stored.
@@ -83,7 +83,7 @@ func run(ctx context.Context, args []string, version string, d *deps) error {
 	flags = append(flags, keyboard.Flags()...)
 
 	app := &cli.Command{
-		Name:      "octbox",
+		Name:      "octobox",
 		Usage:     "List the GitHub issues and pull requests that involve you",
 		Version:   version,
 		Flags:     flags,
@@ -108,7 +108,7 @@ func run(ctx context.Context, args []string, version string, d *deps) error {
 	err := app.Run(ctx, args)
 	if err != nil {
 		errutil.Handle(ctx, goerr.Wrap(err, "failed to run app"), "failed to run app")
-		_, _ = fmt.Fprintln(d.stderr, "octbox: "+userMessage(err))
+		_, _ = fmt.Fprintln(d.stderr, "octobox: "+userMessage(err))
 	}
 	safe.Close(ctx, logCloser)
 	return err
@@ -119,7 +119,7 @@ func run(ctx context.Context, args []string, version string, d *deps) error {
 func userMessage(err error) string {
 	switch {
 	case errors.Is(err, interfaces.ErrDeviceCodeExpired):
-		return "the code expired; run `octbox auth login` again"
+		return "the code expired; run `octobox auth login` again"
 	case errors.Is(err, interfaces.ErrAccessDenied):
 		return "authorization was denied"
 	case errors.Is(err, interfaces.ErrDeviceFlowDisabled):
@@ -129,9 +129,9 @@ func userMessage(err error) string {
 	case goerr.HasTag(err, usecase.TagTokenNotStored):
 		return "failed to store the token in the OS secure storage"
 	case errors.Is(err, interfaces.ErrUnauthorized):
-		return "GitHub rejected the token; run `octbox auth login` again"
+		return "GitHub rejected the token; run `octobox auth login` again"
 	case errors.Is(err, interfaces.ErrSchemaTooNew):
-		return "the database was created by a newer version of octbox"
+		return "the database was created by a newer version of octobox"
 	case errors.Is(err, interfaces.ErrInputSourceUnsupported):
 		return "--switch-ascii-input-source is supported only on macOS"
 	case errors.Is(err, context.Canceled):

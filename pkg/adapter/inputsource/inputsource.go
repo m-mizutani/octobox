@@ -8,7 +8,7 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
 )
 
 // sourceRef is a TISInputSourceRef. Zero is NULL.

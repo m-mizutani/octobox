@@ -9,7 +9,7 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/adapter/herdr"
+	"github.com/m-mizutani/octobox/pkg/adapter/herdr"
 )
 
 // layout is the state of a fake herdr: which tab each pane is in, the names
@@ -163,11 +163,11 @@ func TestUnreadCount(t *testing.T) {
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		name, ok := l.displayAgent("w1:p1")
 		gt.True(t, ok)
-		gt.Equal(t, name, "octbox 2 unread")
+		gt.Equal(t, name, "octobox 2 unread")
 		for _, req := range f.received() {
 			if req.Method == "pane.report_metadata" {
 				gt.Equal(t, params(t, req), map[string]any{
-					"pane_id": "w1:p1", "source": "octbox", "agent": "octbox", "display_agent": "octbox 2 unread",
+					"pane_id": "w1:p1", "source": "octobox", "agent": "octobox", "display_agent": "octobox 2 unread",
 				})
 			}
 		}
@@ -177,7 +177,7 @@ func TestUnreadCount(t *testing.T) {
 
 		gt.NoError(t, client.ShowUnreadCount(ctx, 1)).Required()
 		name, _ = l.displayAgent("w1:p1")
-		gt.Equal(t, name, "octbox 1 unread")
+		gt.Equal(t, name, "octobox 1 unread")
 
 		gt.NoError(t, client.RemoveUnreadCount(ctx)).Required()
 		_, ok = l.displayAgent("w1:p1")
@@ -194,7 +194,7 @@ func TestUnreadCount(t *testing.T) {
 		})
 		gt.Error(t, herdr.New(f.path, "w1:p1").ShowUnreadCount(ctx, 4))
 		name, _ := l.displayAgent("w1:p1")
-		gt.Equal(t, name, "octbox 4 unread")
+		gt.Equal(t, name, "octobox 4 unread")
 	})
 
 	t.Run("the only pane in its tab names the tab", func(t *testing.T) {
@@ -204,12 +204,12 @@ func TestUnreadCount(t *testing.T) {
 
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, panes := l.names()
-		gt.Equal(t, tabs["w1:t1"], "[octbox] 2 unread")
+		gt.Equal(t, tabs["w1:t1"], "[octobox] 2 unread")
 		gt.Equal(t, panes, map[string]string{})
 
 		gt.NoError(t, client.ShowUnreadCount(ctx, 0)).Required()
 		tabs, _ = l.names()
-		gt.Equal(t, tabs["w1:t1"], "[octbox] 0 unread")
+		gt.Equal(t, tabs["w1:t1"], "[octobox] 0 unread")
 
 		gt.NoError(t, client.RemoveUnreadCount(ctx)).Required()
 		tabs, _ = l.names()
@@ -225,7 +225,7 @@ func TestUnreadCount(t *testing.T) {
 		gt.NoError(t, client.ShowUnreadCount(ctx, 3)).Required()
 		tabs, panes := l.names()
 		gt.Equal(t, tabs["w1:t1"], "work")
-		gt.Equal(t, panes, map[string]string{"w1:p1": "[octbox] 3 unread"})
+		gt.Equal(t, panes, map[string]string{"w1:p1": "[octobox] 3 unread"})
 
 		// The pane had no name, so removing clears it.
 		gt.NoError(t, client.RemoveUnreadCount(ctx)).Required()
@@ -266,13 +266,13 @@ func TestUnreadCount(t *testing.T) {
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, panes := l.names()
 		gt.Equal(t, tabs["w1:t1"], "work")
-		gt.Equal(t, panes, map[string]string{"w1:p1": "[octbox] 2 unread"})
+		gt.Equal(t, panes, map[string]string{"w1:p1": "[octobox] 2 unread"})
 
 		// Closing the other pane moves it back.
 		l.update(func() { delete(l.paneTab, "w1:p2") })
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, panes = l.names()
-		gt.Equal(t, tabs["w1:t1"], "[octbox] 2 unread")
+		gt.Equal(t, tabs["w1:t1"], "[octobox] 2 unread")
 		gt.Equal(t, panes, map[string]string{})
 	})
 
@@ -285,7 +285,7 @@ func TestUnreadCount(t *testing.T) {
 		l.update(func() { l.paneTab["w1:p1"] = "w1:t2" })
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, _ := l.names()
-		gt.Equal(t, tabs, map[string]string{"w1:t1": "work", "w1:t2": "[octbox] 2 unread"})
+		gt.Equal(t, tabs, map[string]string{"w1:t1": "work", "w1:t2": "[octobox] 2 unread"})
 
 		// The automatic name is put back as the same text.
 		gt.NoError(t, client.RemoveUnreadCount(ctx)).Required()
@@ -306,7 +306,7 @@ func TestUnreadCount(t *testing.T) {
 		})
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, _ := l.names()
-		gt.Equal(t, tabs, map[string]string{"w1:t2": "[octbox] 2 unread"})
+		gt.Equal(t, tabs, map[string]string{"w1:t2": "[octobox] 2 unread"})
 	})
 
 	t.Run("a name the user set is kept until the count changes", func(t *testing.T) {
@@ -322,7 +322,7 @@ func TestUnreadCount(t *testing.T) {
 
 		gt.NoError(t, client.ShowUnreadCount(ctx, 1)).Required()
 		tabs, _ = l.names()
-		gt.Equal(t, tabs["w1:t1"], "[octbox] 1 unread")
+		gt.Equal(t, tabs["w1:t1"], "[octobox] 1 unread")
 	})
 
 	t.Run("RemoveUnreadCount without a shown count sends nothing", func(t *testing.T) {
@@ -355,7 +355,7 @@ func TestUnreadCount(t *testing.T) {
 		failRename.Store(false)
 		gt.NoError(t, client.ShowUnreadCount(ctx, 2)).Required()
 		tabs, _ := l.names()
-		gt.Equal(t, tabs["w1:t1"], "[octbox] 2 unread")
+		gt.Equal(t, tabs["w1:t1"], "[octobox] 2 unread")
 
 		gt.NoError(t, client.RemoveUnreadCount(ctx)).Required()
 		tabs, _ = l.names()

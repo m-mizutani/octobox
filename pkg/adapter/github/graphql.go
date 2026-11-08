@@ -9,7 +9,7 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 // Page and batch sizes are capped at 50: GitHub answers 502 when a query runs

@@ -11,9 +11,9 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
-	"github.com/m-mizutani/octbox/pkg/domain/model"
-	"github.com/m-mizutani/octbox/pkg/repository/sqlite"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/repository/sqlite"
 )
 
 func userVersion(t *testing.T, path string) int {
@@ -28,7 +28,7 @@ func userVersion(t *testing.T, path string) int {
 
 func TestNewCreatesFileAndSchema(t *testing.T) {
 	ctx := context.Background()
-	path := filepath.Join(t.TempDir(), "nested", "octbox.db")
+	path := filepath.Join(t.TempDir(), "nested", "octobox.db")
 
 	repo, err := sqlite.New(ctx, path)
 	gt.NoError(t, err).Required()
@@ -59,7 +59,7 @@ func createVersion1(t *testing.T, path string) {
 	db, err := sql.Open("sqlite", "file:"+path)
 	gt.NoError(t, err).Required()
 	for _, stmt := range []string{
-		// Every file octbox opened is in WAL mode, which persists in the file.
+		// Every file octobox opened is in WAL mode, which persists in the file.
 		"PRAGMA journal_mode = WAL",
 		sqlite.SchemaV1,
 		"INSERT INTO sync_state (id, viewer) VALUES (1, 'alice')",
@@ -77,7 +77,7 @@ VALUES ('PR_1', 'pull_request', 'example-org', 'api', 1, 'Add retry', 'https://g
 
 func TestNewMigratesVersion1(t *testing.T) {
 	ctx := context.Background()
-	path := filepath.Join(t.TempDir(), "octbox.db")
+	path := filepath.Join(t.TempDir(), "octobox.db")
 	createVersion1(t, path)
 
 	repo, err := sqlite.New(ctx, path)
@@ -99,7 +99,7 @@ func TestNewMigratesVersion1(t *testing.T) {
 
 func TestNewMigratesVersion1Concurrently(t *testing.T) {
 	ctx := context.Background()
-	path := filepath.Join(t.TempDir(), "octbox.db")
+	path := filepath.Join(t.TempDir(), "octobox.db")
 	createVersion1(t, path)
 
 	// Two processes sharing the database start at the same time.
@@ -151,7 +151,7 @@ func assertMigratedVersion1(t *testing.T, repo *sqlite.Repository) {
 
 func TestNewMigratesVersion2(t *testing.T) {
 	ctx := context.Background()
-	path := filepath.Join(t.TempDir(), "octbox.db")
+	path := filepath.Join(t.TempDir(), "octobox.db")
 	createVersion1(t, path)
 	db, err := sql.Open("sqlite", "file:"+path)
 	gt.NoError(t, err).Required()
@@ -188,7 +188,7 @@ func TestNewMigratesVersion2(t *testing.T) {
 
 func TestNewRejectsNewerSchema(t *testing.T) {
 	ctx := context.Background()
-	path := filepath.Join(t.TempDir(), "octbox.db")
+	path := filepath.Join(t.TempDir(), "octobox.db")
 
 	db, err := sql.Open("sqlite", "file:"+path)
 	gt.NoError(t, err).Required()

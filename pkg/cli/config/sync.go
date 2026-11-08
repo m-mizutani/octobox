@@ -22,7 +22,7 @@ func (x *Sync) Flags() []cli.Flag {
 			Category:    "Sync",
 			Usage:       "Interval between syncs with GitHub (at least 30s)",
 			Value:       time.Minute,
-			Sources:     cli.EnvVars("OCTBOX_INTERVAL"),
+			Sources:     cli.EnvVars("OCTOBOX_INTERVAL"),
 			Destination: &x.interval,
 			Local:       true,
 		},

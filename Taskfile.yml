@@ -4,9 +4,9 @@ version: "3"
 
 tasks:
   build:
-    desc: "Build the octbox binary"
+    desc: "Build the octobox binary"
     cmds:
-      - go build -o octbox .
+      - go build -o octobox .
 
   test:
     desc: "Run the Go tests"

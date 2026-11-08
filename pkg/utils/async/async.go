@@ -9,12 +9,12 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/utils/errutil"
+	"github.com/m-mizutani/octobox/pkg/utils/errutil"
 )
 
 // Go runs handler in a new goroutine with ctx, including its cancellation,
 // unlike robin's Dispatch, which detaches the handler from the request that
-// started it: octbox stops its background work when the inbox closes. An
+// started it: octobox stops its background work when the inbox closes. An
 // error or panic of the handler is recorded through errutil.Handle. The
 // returned function blocks until the handler has returned.
 func Go(ctx context.Context, name string, handler func(ctx context.Context) error) (wait func()) {

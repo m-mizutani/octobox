@@ -7,7 +7,7 @@ import (
 
 	"github.com/m-mizutani/goerr/v2"
 
-	"github.com/m-mizutani/octbox/pkg/domain/interfaces"
+	"github.com/m-mizutani/octobox/pkg/domain/interfaces"
 )
 
 func New() (*Switcher, error) {

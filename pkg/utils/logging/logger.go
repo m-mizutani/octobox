@@ -12,7 +12,7 @@ import (
 	"github.com/m-mizutani/masq"
 	"github.com/mattn/go-isatty"
 
-	"github.com/m-mizutani/octbox/pkg/domain/model"
+	"github.com/m-mizutani/octobox/pkg/domain/model"
 )
 
 type Format int

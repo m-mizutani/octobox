@@ -10,8 +10,8 @@ import (
 
 	"github.com/m-mizutani/gt"
 
-	"github.com/m-mizutani/octbox/pkg/utils/async"
-	"github.com/m-mizutani/octbox/pkg/utils/logging"
+	"github.com/m-mizutani/octobox/pkg/utils/async"
+	"github.com/m-mizutani/octobox/pkg/utils/logging"
 )
 
 type syncBuffer struct {
